@@ -412,6 +412,20 @@ class StreamTest extends TestCase
         $stream->write('bar');
     }
 
+    /**
+     * @testWith [false, ""]
+     *           [null, ""]
+     *           [123, "123"]
+     */
+    public function testWriteJugglesToString($value, $expected)
+    {
+        $stream = new Stream('php://memory', 'rw');
+
+        $stream->write($value);
+        $stream->rewind();
+        $this->assertEquals($expected, $stream->getContents());
+    }
+
     public function testIsReadableReturnsFalseWhenStreamIsDetached()
     {
         $this->tmpnam = tempnam(sys_get_temp_dir(), 'diac');

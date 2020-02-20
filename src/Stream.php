@@ -238,7 +238,7 @@ class Stream implements StreamInterface
             throw Exception\UnwritableStreamException::dueToConfiguration();
         }
 
-        $result = fwrite($this->resource, $string);
+        $result = fwrite($this->resource, (string)$string);
 
         if (false === $result) {
             throw Exception\UnwritableStreamException::dueToPhpError();
